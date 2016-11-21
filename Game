@@ -1,0 +1,65 @@
+package game;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import static java.lang.Math.sqrt;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class Game extends JPanel implements MouseListener, MouseMotionListener {
+
+    BufferedImage Checker1;
+    BufferedImage Checker2;
+    BufferedImage King1;
+    BufferedImage King2;
+    BufferedImage DeskImg;
+    BufferedImage Side;
+    Client client;
+    byte[][] Desk;
+    boolean MyTurn = false;
+    boolean MyTurnEnd = false;
+    final short size = 100;
+    byte MyPlayerID = -1;
+    byte EnemyPlayerID = -1;
+    boolean AllowToDrag = false;
+    int DragIndex = -1;
+    Checker[] MyCheckers;
+    Checker[] EnemyCheckers;
+    int Move0Attack1 = -1;
+    Checker[] Dying;
+    int sizeDying = 0;
+    boolean surrender = false;
+    boolean EnemySurrendered = false;
+    boolean draw = false;
+    boolean drawAccepted = false;
+    boolean FullGameEnd = false;
+    boolean GameEnd = false;
+    boolean GameEndWindow = false;
+    boolean IWin = false;
+    int playerWin = 0;
+    boolean WantToPlayMore;
+    boolean RefusedDraw = false;
+    boolean ConnectionLost = false;
+    int EnemyCheckersCount = 0;
+    int MyCheckersCount = 0;
+
+    Socket server;
+    ObjectInputStream FromServer;
+    ObjectOutputStream ToServer;
+    Packet p;
+}
