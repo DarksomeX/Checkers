@@ -1,0 +1,36 @@
+private boolean Attack() {
+        if ((DeskX < MyCheckers[DragIndex].i) && (DeskY < MyCheckers[DragIndex].j)
+                && (DeskX - DeskY == MyCheckers[DragIndex].i - MyCheckers[DragIndex].j)
+                && Desk[DeskX + 1][DeskY + 1] == EnemyPlayerID) {
+
+            Dying(DeskX + 1, DeskY + 1);
+            Move0Attack1 = 1;
+            return true;
+        }
+        if ((DeskX > MyCheckers[DragIndex].i) && (DeskY > MyCheckers[DragIndex].j)
+                && (DeskX - DeskY == MyCheckers[DragIndex].i - MyCheckers[DragIndex].j)
+                && Desk[DeskX - 1][DeskY - 1] == EnemyPlayerID) {
+            Desk[DeskX - 1][DeskY - 1] = 0;
+            Dying(DeskX - 1, DeskY - 1);
+            Move0Attack1 = 1;
+            return true;
+        }
+        if ((DeskX > MyCheckers[DragIndex].i) && (DeskY < MyCheckers[DragIndex].j)
+                && (DeskX + DeskY == MyCheckers[DragIndex].i + MyCheckers[DragIndex].j)
+                && Desk[DeskX - 1][DeskY + 1] == EnemyPlayerID) {
+
+            Dying(DeskX - 1, DeskY + 1);
+            Move0Attack1 = 1;
+            return true;
+        }
+        if ((DeskX < MyCheckers[DragIndex].i) && (DeskY > MyCheckers[DragIndex].j)
+                && (DeskX + DeskY == MyCheckers[DragIndex].i + MyCheckers[DragIndex].j)
+                && Desk[DeskX + 1][DeskY - 1] == EnemyPlayerID) {
+
+            Dying(DeskX + 1, DeskY - 1);
+            Move0Attack1 = 1;
+            return true;
+        }
+
+        return false;
+    }
