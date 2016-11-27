@@ -1,0 +1,30 @@
+private boolean Move() {
+        if (AttackExistAllCheckers()) {
+            return false;
+        } else {
+            if (MyCheckers[DragIndex].isKing) {
+                if (isRightDirection()) {
+                    int i = 1;
+                    while (true) {
+                        if ((DeskX + kx * i == MyCheckers[DragIndex].i) || (DeskY + ky * i == MyCheckers[DragIndex].j)) {
+                            Move0Attack1 = 0;
+                            return true;
+                        }
+                        if ((Desk[DeskX + kx * i][DeskY + ky * i]) != 0) {
+                            return false;
+                        }
+
+                        i++;
+                    }
+                }
+            } else {
+                if (((DeskX == MyCheckers[DragIndex].i - 1) && (DeskY == MyCheckers[DragIndex].j - 1))
+                        || ((DeskX == MyCheckers[DragIndex].i + 1) && (DeskY == MyCheckers[DragIndex].j - 1))) {
+                    Move0Attack1 = 0;
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
