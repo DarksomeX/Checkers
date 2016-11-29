@@ -1,0 +1,28 @@
+private boolean isRightDirection() {
+        if ((DeskX < MyCheckers[DragIndex].i) && (DeskY < MyCheckers[DragIndex].j)
+                && (DeskX - DeskY == MyCheckers[DragIndex].i - MyCheckers[DragIndex].j)) {
+            kx = 1;
+            ky = 1;
+            return true;
+        }
+        if ((DeskX > MyCheckers[DragIndex].i) && (DeskY > MyCheckers[DragIndex].j)
+                && (DeskX - DeskY == MyCheckers[DragIndex].i - MyCheckers[DragIndex].j)) {
+            kx = -1;
+            ky = -1;
+            return true;
+        }
+        if ((DeskX > MyCheckers[DragIndex].i) && (DeskY < MyCheckers[DragIndex].j)
+                && (DeskX + DeskY == MyCheckers[DragIndex].i + MyCheckers[DragIndex].j)) {
+            kx = -1;
+            ky = 1;
+            return true;
+        }
+        if ((DeskX < MyCheckers[DragIndex].i) && (DeskY > MyCheckers[DragIndex].j)
+                && (DeskX + DeskY == MyCheckers[DragIndex].i + MyCheckers[DragIndex].j)) {
+            kx = 1;
+            ky = -1;
+            return true;
+
+        }
+        return false;
+    }
