@@ -1,0 +1,22 @@
+private void SetDefaultCheckersCoordinates() {
+        int mysize = 0;
+        int enemysize = 0;
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 2; j++) {
+                if ((i + j) % 2 == 1) {
+                    EnemyCheckers[enemysize] = new Checker((i * size) + size / 2, (j * size) + size / 2, (byte) i, (byte) j);
+                    enemysize++;
+                }
+            }
+        }
+
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 5; j <= 7; j++) {
+                if ((i + j) % 2 == 1) {
+                    MyCheckers[mysize] = new Checker((i * size) + size / 2, (j * size) + size / 2, (byte) i, (byte) j);
+                    mysize++;
+                }
+            }
+        }
+
+    }
