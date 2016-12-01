@@ -1,0 +1,14 @@
+private void SetDefaultCheckersPosition(byte player) {
+        byte shift = 0;
+        if (player == MyPlayerID) {
+            shift = 5;
+        }
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0 + shift; j <= 2 + shift; j++) {
+                if ((i + j) % 2 == 1) {
+                    Desk[i][j] = player;
+                }
+            }
+        }
+
+    }
