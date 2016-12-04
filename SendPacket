@@ -1,0 +1,33 @@
+private void SendPacket() {
+
+        p = new Packet(MyCheckers, EnemyCheckers, Desk, DragIndex);
+        if (IWin) {
+            p.GameEnd = true;
+        }
+        if (GameEnd) {
+            p.WantPlayMore = WantToPlayMore;
+        }
+        if (drawAccepted) {
+            p.drawAccepted = true;
+        }
+        if (draw) {
+            p.draw = true;
+            draw = false;
+        }
+        if (surrender) {
+            p.surrender = true;
+        }
+        if (MyTurn == false) {
+            if (RefusedDraw) {
+                RefusedDraw = false;
+            } else {
+                p.YourTurn = true;
+            }
+        }
+        try {
+            ToServer.writeObject(p);
+        } catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
