@@ -1,0 +1,86 @@
+public Game(byte player, Socket server, ObjectInputStream FromServer, ObjectOutputStream ToServer, Client client) throws IOException {
+        Checker1 = ImageIO.read(new File("Checker1.png"));
+        Checker2 = ImageIO.read(new File("Checker2.png"));
+        King1 = ImageIO.read(new File("King1.png"));
+        King2 = ImageIO.read(new File("King2.png"));
+        DeskImg = ImageIO.read(new File("Desk.jpg"));
+        Side = ImageIO.read(new File("Side.jpg"));
+
+        this.client = client;
+        JPanel p = this;
+        this.setLayout(null);
+        JButton surrenderButton = new JButton();
+        surrenderButton.setBackground(new Color(175,150,0));
+        surrenderButton.setContentAreaFilled(false);
+        JButton drawButton = new JButton();
+        drawButton.setBackground(new Color(175,150,0));
+        drawButton.setContentAreaFilled(false);
+        
+        surrenderButton.setBounds(size * 8 + 10, size * 3, size, size);
+        drawButton.setBounds(size * 8 + 10, size * 4, size, size);
+        
+        surrenderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                surrenderButton.setContentAreaFilled(true);
+                if (MyTurn) {
+                    surrender = true;
+                    GameEnd = true;
+                    playerWin = EnemyPlayerID;
+                    repaint();
+                    SendPacket();
+                }
+            }
+        });
+        
+        drawButton.addActionListener(new ActionListener() {
+            @Override
+
+            public void actionPerformed(ActionEvent e) {
+                drawButton.setContentAreaFilled(true);
+                if (MyTurn) {
+                    draw = true;
+
+                    SendPacket();
+                    Packet packet = null;
+                    //JOptionPane.showMessageDialog(p, "Waiting answer...");
+                    try {
+                        packet = (Packet) FromServer.readObject();
+
+                    } catch (IOException | ClassNotFoundException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (packet.drawAccepted) {
+                        GameEnd = true;
+                        drawAccepted = true;
+                    } else {
+                        JOptionPane.showMessageDialog(p, "Opponent refused...");
+
+                    }
+                    repaint();
+                }
+            }
+        });
+        this.add(surrenderButton);
+        this.add(drawButton);
+        this.server = server;
+        this.FromServer = FromServer;
+        this.ToServer = ToServer;
+        MyCheckers = new Checker[12];
+        EnemyCheckers = new Checker[12];
+        Dying = new Checker[12];
+        addMouseMotionListener(this);
+        addMouseListener(this);
+        Desk = new byte[8][8];
+        MyPlayerID = player;
+        if (MyPlayerID == 1) {
+            EnemyPlayerID = 2;
+            MyTurn = true;
+        } else {
+            EnemyPlayerID = 1;
+        }
+
+        SetDefaultCheckersPosition(MyPlayerID);
+        SetDefaultCheckersPosition(EnemyPlayerID);
+        SetDefaultCheckersCoordinates();
+    }
