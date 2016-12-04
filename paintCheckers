@@ -1,0 +1,69 @@
+private void paintCheckers(Graphics g) {
+        BufferedImage MyChecker;
+        BufferedImage EnemyChecker;
+        BufferedImage MyKing;
+        BufferedImage EnemyKing;
+
+       
+        if (MyPlayerID == 1) {
+            MyChecker = Checker1;
+            EnemyChecker = Checker2;
+            MyKing = King1;
+            EnemyKing = King2;
+            
+        } else {
+            MyChecker = Checker2;
+            EnemyChecker = Checker1;
+            MyKing = King2;
+            EnemyKing = King1;
+            
+        }
+
+        for (int i = 0; i <= 11; i++) {
+            
+            if (EnemyCheckers[i].exist) {
+                if (EnemyCheckers[i].isKing) {
+                    
+                    g.drawImage(EnemyKing, EnemyCheckers[i].x - 50, EnemyCheckers[i].y - 50, this);
+                } else {
+                    g.drawImage(EnemyChecker, EnemyCheckers[i].x - 50, EnemyCheckers[i].y - 50, this);
+                }
+                
+            }
+        }
+
+        for (int i = 0; i <= 11; i++) {
+            
+            if (MyCheckers[i].exist) {
+                if (MyCheckers[i].isKing) {
+                    
+                    g.drawImage(MyKing, MyCheckers[i].x - 50, MyCheckers[i].y - 50, this);
+                } else {
+                    g.drawImage(MyChecker, MyCheckers[i].x - 50, MyCheckers[i].y - 50, this);
+                }
+                
+            }
+        }
+
+        if (DragIndex != -1) {
+            if (MyTurn == false) {
+                
+                if (EnemyCheckers[DragIndex].isKing) {
+                    
+                    g.drawImage(EnemyKing, EnemyCheckers[DragIndex].x - 50, EnemyCheckers[DragIndex].y - 50, this);
+                } else {
+                    g.drawImage(EnemyChecker, EnemyCheckers[DragIndex].x - 50, EnemyCheckers[DragIndex].y - 50, this);
+                }
+                
+            } else {
+                
+                if (MyCheckers[DragIndex].isKing) {
+                    
+                    g.drawImage(MyKing, MyCheckers[DragIndex].x - 50, MyCheckers[DragIndex].y - 50, this);
+                } else {
+                    g.drawImage(MyChecker, MyCheckers[DragIndex].x - 50, MyCheckers[DragIndex].y - 50, this);
+                }
+            }
+        }
+
+    }
