@@ -1,0 +1,7 @@
+private void paintDesk(Graphics g) {
+        g.drawImage(DeskImg, 0, 0, this);
+        g.drawImage(Side, 800, 0, this);
+        
+        
+        
+    }
