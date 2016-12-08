@@ -1,0 +1,14 @@
+private void CountCheckers(){
+        EnemyCheckersCount = 0;
+        MyCheckersCount = 0;
+        for(int i = 0; i <= 11; i++){
+            if(MyCheckers[i].exist){
+                MyCheckersCount++;
+            }
+        }
+        for(int i = 0; i <= 11; i++){
+            if(EnemyCheckers[i].exist){
+                EnemyCheckersCount++;
+            }
+        }
+    }
