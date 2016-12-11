@@ -1,0 +1,12 @@
+ private boolean getCellfromCoordinates(int x, int y) {
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                if ((x > i * size) && (x < i * size + size) && (y > j * size) && (y < j * size + size)) {
+                    DeskX = (byte) i;
+                    DeskY = (byte) j;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
