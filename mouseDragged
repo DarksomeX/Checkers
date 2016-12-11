@@ -1,0 +1,15 @@
+public void mouseDragged(MouseEvent e) {
+        if (GameEnd != true) {
+            if (AllowToDrag) {
+
+                int dx = e.getX() - MyCheckers[DragIndex].x;
+                int dy = e.getY() - MyCheckers[DragIndex].y;
+                MyCheckers[DragIndex].x += dx;
+                MyCheckers[DragIndex].y += dy;
+                if (MyTurn) {
+                    SendPacket();
+                }
+                repaint();
+            }
+        }
+    }
