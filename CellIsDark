@@ -1,3 +1,0 @@
-private boolean CellIsDark() {
-        return ((DeskX + DeskY) % 2) == 1;
-    }
