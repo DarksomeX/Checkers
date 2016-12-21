@@ -1,3 +1,0 @@
-private boolean CellIsFree() {
-        return Desk[DeskX][DeskY] == 0;
-    }
