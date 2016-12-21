@@ -6,12 +6,11 @@ import javax.swing.JFrame;
 
 public class Client {
 
-    Socket server;
-    ObjectInputStream FromServer;
-    ObjectOutputStream ToServer;
+    private static final String IP = "109.87.44.189";
+    private final ObjectInputStream FromServer;
+    private final ObjectOutputStream ToServer;
 
-    public Client(Socket server, ObjectInputStream FromServer, ObjectOutputStream ToServer) {
-        this.server = server;
+    public Client(ObjectInputStream FromServer, ObjectOutputStream ToServer) {
         this.FromServer = FromServer;
         this.ToServer = ToServer;
     }
@@ -21,35 +20,30 @@ public class Client {
     }
 
     public synchronized void GameThread() throws InterruptedException, IOException, ClassNotFoundException {
-        boolean FirstTime = true;
         while (true) {
-            Packet p = null;
+            Packet p;
             
             p = (Packet) FromServer.readObject();
-            /*if((p.WantPlayMore == false)&&FirstTime == false){
-                break;
-            }
-            FirstTime = false;*/
             byte PlayerID = p.getID();
 
             p = (Packet) FromServer.readObject();
-            if (p.GameStarted) {
+            if (p.isGameStarted()) {
                 JFrame jf = new JFrame();
                 jf.setTitle("Checkers");
-                Game g = new Game(PlayerID, server, FromServer, ToServer, this);
+                Game g = new Game(PlayerID, FromServer, ToServer, this);
                 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 jf.setResizable(false);
-                jf.setSize(806 + g.size + 10, 829);
+                jf.setSize((int)(Game.getCellSize()*9.1)+6,Game.getCellSize()*8+29);
                 jf.setLocationRelativeTo(null);
 
                 jf.add(g);
                 jf.setVisible(true);
                 this.wait();
                 jf.dispose();
-                if (g.ConnectionLost) {
+                if (g.isConnectionLost()) {
                     break;
                 }
-                if (g.WantToPlayMore == false) {
+                if (g.isWantToPlayMore() == false) {
                     break;
                 }
 
@@ -60,20 +54,18 @@ public class Client {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
-        Socket server = new Socket("109.87.44.189", 4444);
-
-        System.out.println("Welcome to Client side");
-        System.out.println("Connecting to... 109.87.44.189");
-
-        ObjectOutputStream ToServer = new ObjectOutputStream(server.getOutputStream());
-        ObjectInputStream FromServer = new ObjectInputStream(server.getInputStream());
-
-        Client c = new Client(server, FromServer, ToServer);
-        c.GameThread();
-
-        FromServer.close();
-        ToServer.close();
-        server.close();
+        try (Socket server = new Socket(IP, 4444)) {
+            System.out.println("Welcome to Client side");
+            System.out.println("Connecting to... 109.87.44.189");
+            
+            try (ObjectOutputStream ToServer = new ObjectOutputStream(server.getOutputStream()); 
+                    ObjectInputStream FromServer = new ObjectInputStream(server.getInputStream())) {
+                
+                Client c = new Client(FromServer, ToServer);
+                c.GameThread();
+                
+            }
+        }
 
     }
 }

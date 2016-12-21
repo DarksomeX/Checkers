@@ -3,27 +3,26 @@ package game;
 import java.io.Serializable;
 
 public class Packet implements Serializable {
-
-    byte Desk[][];
-    public Checker[] MyCheckers;
-    public Checker[] EnemyCheckers;
     private byte ID;
-    int DragIndex;
-    boolean WantPlayMore;
-    boolean GameStarted = false;
-    boolean GameEnd = false;
-    boolean YourTurn = false;
-    boolean surrender = false;
-    boolean draw = false;
-    boolean drawAccepted = false;
-    boolean ConnectionLost = false;
+    private byte Desk[][];
+    private Checker[] MyCheckers;
+    private Checker[] EnemyCheckers;
+    private int DragIndex;
+    private boolean WantPlayMore;
+    private boolean GameStarted = false;
+    private boolean GameEnd = false;
+    private boolean YourTurn = false;
+    private boolean surrender = false;
+    private boolean draw = false;
+    private boolean drawAccepted = false;
+    private boolean ConnectionLost = false;
 
     public Packet(byte ID) {
         this.ID = ID;
     }
 
     public Packet() {
-
+        
     }
 
     public Packet(boolean start) {
@@ -79,13 +78,13 @@ public class Packet implements Serializable {
         for (int i = 0; i <= 11; i++) {
             MyCheckers[i].i = (byte) (7 - MyCheckers[i].i);
             MyCheckers[i].j = (byte) (7 - MyCheckers[i].j);
-            MyCheckers[i].x = 800 - MyCheckers[i].x;
-            MyCheckers[i].y = 800 - MyCheckers[i].y;
+            MyCheckers[i].x = Game.getCellSize()*8 - MyCheckers[i].x;
+            MyCheckers[i].y = Game.getCellSize()*8 - MyCheckers[i].y;    
 
             EnemyCheckers[i].i = (byte) (7 - EnemyCheckers[i].i);
             EnemyCheckers[i].j = (byte) (7 - EnemyCheckers[i].j);
-            EnemyCheckers[i].x = 800 - EnemyCheckers[i].x;
-            EnemyCheckers[i].y = 800 - EnemyCheckers[i].y;
+            EnemyCheckers[i].x = Game.getCellSize()*8 - EnemyCheckers[i].x;
+            EnemyCheckers[i].y = Game.getCellSize()*8 - EnemyCheckers[i].y;
         }
 
         for (int i = 0; i <= 7; i++) {
@@ -96,5 +95,102 @@ public class Packet implements Serializable {
 
         Desk = tmp2;
 
+    }
+
+    public byte[][] getDesk() {
+        return Desk;
+    }
+
+    public void setDesk(byte[][] Desk) {
+        this.Desk = Desk;
+    }
+
+    public Checker[] getMyCheckers() {
+        return MyCheckers;
+    }
+
+    public void setMyCheckers(Checker[] MyCheckers) {
+        this.MyCheckers = MyCheckers;
+    }
+
+    public Checker[] getEnemyCheckers() {
+        return EnemyCheckers;
+    }
+
+    public void setEnemyCheckers(Checker[] EnemyCheckers) {
+        this.EnemyCheckers = EnemyCheckers;
+    }
+
+    public int getDragIndex() {
+        return DragIndex;
+    }
+
+    public void setDragIndex(int DragIndex) {
+        this.DragIndex = DragIndex;
+    }
+
+    public boolean isWantPlayMore() {
+        return WantPlayMore;
+    }
+
+    public void setWantPlayMore(boolean WantPlayMore) {
+        this.WantPlayMore = WantPlayMore;
+    }
+
+    public boolean isGameStarted() {
+        return GameStarted;
+    }
+
+    public void setGameStarted(boolean GameStarted) {
+        this.GameStarted = GameStarted;
+    }
+
+    public boolean isGameEnd() {
+        return GameEnd;
+    }
+
+    public void setGameEnd(boolean GameEnd) {
+        this.GameEnd = GameEnd;
+    }
+
+    public boolean isYourTurn() {
+        return YourTurn;
+    }
+
+    public void setYourTurn(boolean YourTurn) {
+        this.YourTurn = YourTurn;
+    }
+
+    public boolean isSurrender() {
+        return surrender;
+    }
+
+    public void setSurrender(boolean surrender) {
+        this.surrender = surrender;
+    }
+
+    public boolean isDraw() {
+        return draw;
+    }
+
+    public void setDraw(boolean draw) {
+        this.draw = draw;
+    }
+
+    public boolean isDrawAccepted() {
+        return drawAccepted;
+    }
+
+
+    public void setDrawAccepted(boolean drawAccepted) {
+        this.drawAccepted = drawAccepted;
+    }
+
+    public boolean isConnectionLost() {
+        return ConnectionLost;
+    }
+
+    public void setConnectionLost(boolean ConnectionLost) {
+        this.ConnectionLost = ConnectionLost;
     }
 }
